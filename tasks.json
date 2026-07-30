@@ -1,0 +1,24 @@
+{
+  "mainQuest": {
+    "title": "新的冒险",
+    "objective": "整理今日最重要的任务",
+    "details": "这是一条主线任务示例。修改 tasks.json 并保存后，HUD 会自动刷新。"
+  },
+  "sideQuests": [
+    {
+      "title": "检查收件箱",
+      "objective": "0/1",
+      "details": "清理 Obsidian 收件箱中的临时记录，并决定归档位置。"
+    },
+    {
+      "title": "推进论文修订",
+      "objective": "2/5",
+      "details": "对照反馈表逐项核查 Methods 段落。"
+    },
+    {
+      "title": "备份 vault",
+      "objective": "待执行",
+      "details": "完成重要改动后提交并推送 Git 仓库。"
+    }
+  ]
+}

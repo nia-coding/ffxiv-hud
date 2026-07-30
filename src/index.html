@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFXIV HUD</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main id="hud-root" aria-live="polite">
+      <section id="main-quest" class="main-quest clickable" data-interactive="true"></section>
+      <section id="duty-list" class="duty-list" aria-label="Duty List"></section>
+    </main>
+
+    <div id="modal-backdrop" class="modal-backdrop hidden" data-interactive="true">
+      <dialog id="details-modal" class="details-modal" aria-labelledby="modal-title">
+        <button id="modal-close" class="modal-close" type="button" aria-label="关闭" data-interactive="true">x</button>
+        <h2 id="modal-title" class="ffxiv-text"></h2>
+        <p id="modal-objective" class="modal-objective ffxiv-text"></p>
+        <p id="modal-details" class="modal-details ffxiv-text"></p>
+      </dialog>
+    </div>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>
