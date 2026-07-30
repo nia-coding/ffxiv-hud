@@ -6,6 +6,7 @@ macOS 桌面悬浮任务看板原型，使用 Electron + 原生 HTML/CSS/JS 实�
 
 ```bash
 npm install
+cp tasks.example.json tasks.json
 npm start
 ```
 
@@ -22,6 +23,8 @@ npm run check
 ```
 
 ## 数据格式
+
+真实待办写在本地 `tasks.json`。这个文件已加入 `.gitignore`，不会提交到 GitHub；仓库只保留 `tasks.example.json` 作为示例。
 
 ```json
 {

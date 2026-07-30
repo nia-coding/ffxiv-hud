@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const TASKS_PATH = path.join(__dirname, 'tasks.json');
+const TASKS_EXAMPLE_PATH = path.join(__dirname, 'tasks.example.json');
 
 let mainWindow = null;
 let watchHandle = null;
@@ -10,6 +11,7 @@ let reloadTimer = null;
 
 function readTasks() {
   try {
+    ensureTasksFile();
     const raw = fs.readFileSync(TASKS_PATH, 'utf8');
     return JSON.parse(raw);
   } catch (error) {
@@ -25,6 +27,14 @@ function readTasks() {
   }
 }
 
+function ensureTasksFile() {
+  if (fs.existsSync(TASKS_PATH)) {
+    return;
+  }
+
+  fs.copyFileSync(TASKS_EXAMPLE_PATH, TASKS_PATH);
+}
+
 function sendTasks() {
   if (!mainWindow || mainWindow.isDestroyed()) {
     return;
@@ -33,15 +43,25 @@ function sendTasks() {
   mainWindow.webContents.send('tasks:update', readTasks());
 }
 
+function scheduleSendTasks() {
+  clearTimeout(reloadTimer);
+  reloadTimer = setTimeout(sendTasks, 120);
+}
+
 function watchTasks() {
+  ensureTasksFile();
+
   if (watchHandle) {
     watchHandle.close();
   }
 
-  watchHandle = fs.watch(TASKS_PATH, { persistent: true }, () => {
-    clearTimeout(reloadTimer);
-    reloadTimer = setTimeout(sendTasks, 120);
+  watchHandle = fs.watch(__dirname, { persistent: true }, (_eventType, filename) => {
+    if (!filename || path.basename(filename) === path.basename(TASKS_PATH)) {
+      scheduleSendTasks();
+    }
   });
+
+  fs.watchFile(TASKS_PATH, { interval: 500 }, scheduleSendTasks);
 }
 
 function createWindow() {
@@ -105,6 +125,7 @@ app.on('before-quit', () => {
   if (watchHandle) {
     watchHandle.close();
   }
+  fs.unwatchFile(TASKS_PATH, scheduleSendTasks);
 });
 
 app.on('window-all-closed', () => {

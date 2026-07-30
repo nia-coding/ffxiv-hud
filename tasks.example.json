@@ -1,0 +1,19 @@
+{
+  "mainQuest": {
+    "title": "Main Quest",
+    "objective": "Edit tasks.json to show your current priority",
+    "details": "Copy tasks.example.json to tasks.json, then edit tasks.json locally. The app watches tasks.json and refreshes the HUD when the file changes."
+  },
+  "sideQuests": [
+    {
+      "title": "Side Quest 1",
+      "objective": "0/1",
+      "details": "This is example data for the open source repo. Your real tasks should stay in local tasks.json."
+    },
+    {
+      "title": "Side Quest 2",
+      "objective": "0/1",
+      "details": "Only the first five side quests are rendered."
+    }
+  ]
+}
